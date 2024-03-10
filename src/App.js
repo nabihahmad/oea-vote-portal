@@ -12,7 +12,7 @@ function App() {
 
   const handleAddVote = async () => {
     try {
-      await axios.post(`http://long-lime-mussel-garb.cyclic.app/vote/${number}`);
+      await axios.post(`https://long-lime-mussel-garb.cyclic.app/vote/${number}`);
       setMessage('Vote added successfully');
     } catch (error) {
       setMessage('Failed to add vote');
@@ -21,7 +21,7 @@ function App() {
 
   const handleRemoveVote = async () => {
     try {
-      await axios.delete(`http://long-lime-mussel-garb.cyclic.app/vote/${number}`);
+      await axios.delete(`https://long-lime-mussel-garb.cyclic.app/vote/${number}`);
       setMessage('Vote removed successfully');
     } catch (error) {
       setMessage('Failed to remove vote');
@@ -30,7 +30,7 @@ function App() {
 
   const handleGetVote = async () => {
     try {
-      const response = await axios.get(`http://long-lime-mussel-garb.cyclic.app/vote/${number}`);
+      const response = await axios.get(`https://long-lime-mussel-garb.cyclic.app/vote/${number}`);
       setMessage(`Votes for ${number}: ${response.data.status}`);
     } catch (error) {
       setMessage('Failed to get vote');
