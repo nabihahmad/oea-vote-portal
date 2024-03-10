@@ -44,7 +44,7 @@ function App() {
       <button className="button" onClick={handleAddVote}>Add Vote</button>
       <button className="button" onClick={handleRemoveVote}>Remove Vote</button>
       <button className="button" onClick={handleGetVote}>Get Vote</button>
-      <p>{message}</p>
+      <p style={{ fontSize: '20px', color: 'green' }} >{message}</p>
       </div>
     </div>
   );
