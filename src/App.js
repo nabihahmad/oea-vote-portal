@@ -1,23 +1,51 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import axios from 'axios';
 import './App.css';
 
 function App() {
+  const [number, setNumber] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handleChange = (e) => {
+    setNumber(e.target.value);
+  };
+
+  const handleAddVote = async () => {
+    try {
+      await axios.post(`http://long-lime-mussel-garb.cyclic.app/vote/${number}`);
+      setMessage('Vote added successfully');
+    } catch (error) {
+      setMessage('Failed to add vote');
+    }
+  };
+
+  const handleRemoveVote = async () => {
+    try {
+      await axios.delete(`http://long-lime-mussel-garb.cyclic.app/vote/${number}`);
+      setMessage('Vote removed successfully');
+    } catch (error) {
+      setMessage('Failed to remove vote');
+    }
+  };
+
+  const handleGetVote = async () => {
+    try {
+      const response = await axios.get(`http://long-lime-mussel-garb.cyclic.app/vote/${number}`);
+      setMessage(`Votes for ${number}: ${response.data.status}`);
+    } catch (error) {
+      setMessage('Failed to get vote');
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <div className="center">
+      <input className="input" type="number" value={number} onChange={handleChange} />
+      <button className="button" onClick={handleAddVote}>Add Vote</button>
+      <button className="button" onClick={handleRemoveVote}>Remove Vote</button>
+      <button className="button" onClick={handleGetVote}>Get Vote</button>
+      <p>{message}</p>
+      </div>
     </div>
   );
 }
