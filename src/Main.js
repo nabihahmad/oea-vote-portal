@@ -57,10 +57,6 @@ const Main = () => {
     console.log(process.env.REACT_APP_TEST);
     setNumber(e.target.value);
   };
-  
-  const handleNavigate = () => {
-    console.log(1);
-  }
 
   const handleAddVote = async () => {
     try {
