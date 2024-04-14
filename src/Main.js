@@ -28,7 +28,7 @@ const BALLOT_BOXES = [
 ];
 
 const Main = () => {
-  const isLoggedIn = !!Cookies.get('token');
+  const isLoggedIn = !!Cookies.get(process.env.REACT_APP_TOKEN);
   if (!isLoggedIn)
     window.location.href = '/';
   const [number, setNumber] = useState('');
@@ -36,6 +36,9 @@ const Main = () => {
   const [searchResult, setSearchResult] = useState(null);
 
   const handleSearch = () => {
+    const isLoggedIn = !!Cookies.get(process.env.REACT_APP_TOKEN);
+    if (!isLoggedIn)
+      window.location.href = '/';
     setMessage('');
     const result = jsonData.find(item => item.Code === parseInt(number));
     if (result != null) {
@@ -59,6 +62,9 @@ const Main = () => {
   };
 
   const handleAddVote = async () => {
+    const isLoggedIn = !!Cookies.get(process.env.REACT_APP_TOKEN);
+    if (!isLoggedIn)
+      window.location.href = '/';
     try {
       await axios.post(`${process.env.REACT_APP_OEA_BACKEND_HOST}/votes/${number}`);
       setMessage('Vote added successfully');
@@ -68,6 +74,9 @@ const Main = () => {
   };
 
   const handleRemoveVote = async () => {
+    const isLoggedIn = !!Cookies.get(process.env.REACT_APP_TOKEN);
+    if (!isLoggedIn)
+      window.location.href = '/';
     try {
       await axios.delete(`${process.env.REACT_APP_OEA_BACKEND_HOST}/votes/${number}`);
       setMessage('Vote removed successfully');
@@ -77,6 +86,9 @@ const Main = () => {
   };
 
   const handleGetVote = async () => {
+    const isLoggedIn = !!Cookies.get(process.env.REACT_APP_TOKEN);
+    if (!isLoggedIn)
+      window.location.href = '/';
     try {
       const response = await axios.get(`${process.env.REACT_APP_OEA_BACKEND_HOST}/votes/${number}`);
       setMessage(`Votes for ${number}: ${response.data.status}`);
@@ -86,7 +98,7 @@ const Main = () => {
   };
 
   const logout = () => {
-    Cookies.remove('token');
+    Cookies.remove(process.env.REACT_APP_TOKEN);
     window.location.href = '/';
   }
 
@@ -97,7 +109,7 @@ const Main = () => {
       </div>
       <div className="app">
         <div className="center">
-        <p style={{ fontSize: '20px', color: 'green' }} >{message}</p>
+        <p style={{ fontSize: '26px', color: 'green' }} >{message}</p>
         <input
             className="input"
             type="number"
